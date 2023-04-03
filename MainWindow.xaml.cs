@@ -30,7 +30,7 @@ namespace CPUSimulator
             CreateControls();
         }
 
-        public void CreateControls()
+        public void CreateControls() //fereasca dumnezeu nu mai scrie UI in cod, pune-l in XAML
         {
             browseButton = new Button();
             browseButton.SetValue(Grid.RowProperty, 1);

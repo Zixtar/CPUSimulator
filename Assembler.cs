@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CPUSimulator.Instructions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CPUSimulator
 {
@@ -11,10 +13,17 @@ namespace CPUSimulator
         public List<string> ParseInstructionList(List<string> instructionList)
         {
             List<string> result = new List<string>();   
-            foreach(var instruction in instructionList)
+            foreach(var instructionText in instructionList)
             {
-                if (instruction == "") continue;
-                var trimmedInstruction=instruction.ReplaceLineEndings().Trim('\t').Split(";").First();
+                var trimmedInstruction= instructionText.ReplaceLineEndings().Trim().Split(";").First();
+                if (string.IsNullOrEmpty(trimmedInstruction)) continue;
+                var instruction = InstructionFactory.GetInstuction(trimmedInstruction);
+                if (instruction == null)
+                {
+                    MessageBox.Show($"Invalid instruction: {instructionText}", "Sintax error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
+                }
+                //var binaryFrom = instruction.GetBinaryForm();
                 if(trimmedInstruction.Contains(':') && trimmedInstruction.Last()!=':')
                 {
                     result.Add(trimmedInstruction.Split(':').First() + ":");
