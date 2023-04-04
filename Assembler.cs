@@ -10,29 +10,32 @@ namespace CPUSimulator
 {
     public class Assembler
     {
-        public List<string> ParseInstructionList(List<string> instructionList)
+        Dictionary<string,int> labelDictionary=new Dictionary<string,int>();
+        public List<int> ParseInstructionList(List<string> instructionList)
         {
-            List<string> result = new List<string>();   
+            List<int> result = new List<int>();   
             foreach(var instructionText in instructionList)
             {
                 var trimmedInstruction= instructionText.ReplaceLineEndings().Trim().Split(";").First();
                 if (string.IsNullOrEmpty(trimmedInstruction)) continue;
+                if (trimmedInstruction.Contains(':'))
+                {
+                    var label = trimmedInstruction.Split(':').First();
+                    labelDictionary.Add(label, result.Count);
+                    var textAfterLabel = trimmedInstruction.Split(':')[1];
+                    if(textAfterLabel.Length > 0) 
+                    {
+                        trimmedInstruction = textAfterLabel;
+                    }   
+                }
                 var instruction = InstructionFactory.GetInstruction(trimmedInstruction);
                 if (instruction == null)
                 {
-                    MessageBox.Show($"Invalid instruction: {instructionText}", "Sintax error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Invalid instruction: {instructionText}", "Syntax error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }
-                //var binaryFrom = instruction.GetBinaryForm();
-                if(trimmedInstruction.Contains(':') && trimmedInstruction.Last()!=':')
-                {
-                    result.Add(trimmedInstruction.Split(':').First() + ":");
-                    result.Add(trimmedInstruction.Split(':')[1].Trim(' '));
-                }
-                else 
-                {
-                    result.Add(trimmedInstruction);
-                }
+                var binaryFrom = instruction.GetBinaryForm();
+                result.Add(binaryFrom);
                 
             }
             return result;

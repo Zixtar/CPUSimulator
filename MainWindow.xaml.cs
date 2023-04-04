@@ -90,7 +90,7 @@ namespace CPUSimulator
 
             foreach(var instruction in machineCode)
             {
-                resultTextBox.Text += instruction + '\r';
+                resultTextBox.Text += Convert.ToString(instruction, 2) + '\r';
             }
         }
     }

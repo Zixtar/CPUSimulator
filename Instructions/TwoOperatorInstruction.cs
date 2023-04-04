@@ -9,36 +9,48 @@ namespace CPUSimulator.Instructions
 {
     internal class TwoOperatorInstruction : IInstruction
     {
+        private Dictionary<string,int> InstructionOpcodes=new Dictionary<string,int>()
+        {
+            {"MOV",0x0},
+            {"ADD",0x1},
+            {"SUB",0x2},
+            {"CMP",0x3},
+            {"AND",0x4},
+            {"OR",0x5},
+            {"XOR",0x6}
+        };
         public TwoOperatorInstruction(string text) 
         {
             TextForm = text;
         }
         public string TextForm { get; }
-        public int RD => BinaryForm & 0x3;
-        public int MAD => (BinaryForm & 0x4) >> 4;
-        public int RS => (BinaryForm & 0x18) >> 6;
-        public int MAS => (BinaryForm & 0x20) >> 10;
-        public int OPCODE => (BinaryForm & 0xC0) >> 12;
+        public int RD => BinaryForm & 0xF;
+        public int MAD => (BinaryForm & 0x30) >> 4;
+        public int RS => (BinaryForm & 0x3C0) >> 6;
+        public int MAS => (BinaryForm & 0xC00) >> 10;
+        public int OPCODE => (BinaryForm & 0xF000) >> 12;
 
-        private int? _binaryFrom;
+        private int? _binaryForm;
 
         public int BinaryForm
         {
             get => GetBinaryForm();
             private set
             {
-                _binaryFrom = value;
+                _binaryForm = value;
             }
         }
 
         public int GetBinaryForm()
         {
-            return _binaryFrom ?? GenerateBinaryForm();
+            return _binaryForm ?? GenerateBinaryForm();
         }
 
         public int GenerateBinaryForm()
         {
-            throw new NotImplementedException();
+            var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var opcode = InstructionOpcodes[InstructionParts.First()];
+            return opcode<<12;
         }
     }
 }
