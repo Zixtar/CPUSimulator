@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class TwoOperatorInstruction : IInstuction
+    internal class TwoOperatorInstruction : IInstruction
     {
         public TwoOperatorInstruction(string text) 
         {

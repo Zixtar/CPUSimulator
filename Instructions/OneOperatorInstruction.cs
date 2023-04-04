@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class OneOperatorInstruction : IInstuction
+    internal class OneOperatorInstruction : IInstruction
     {
         public OneOperatorInstruction(string text)
         {

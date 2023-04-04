@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class JumpInstruction : IInstuction
+    internal class JumpInstruction : IInstruction
     {
         public JumpInstruction(string text)
         {

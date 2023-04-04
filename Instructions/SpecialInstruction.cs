@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class SpecialInstruction : IInstuction
+    internal class SpecialInstruction : IInstruction
     {
         public SpecialInstruction(string text) 
         {

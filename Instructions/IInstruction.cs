@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal interface IInstuction
+    internal interface IInstruction
     {
         string TextForm { get; }
         int BinaryForm { get; }
