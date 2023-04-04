@@ -9,9 +9,9 @@ namespace CPUSimulator.Instructions
     internal static class InstructionFactory
     {
         private static string[] JmpText = { "BR", "BNE", "BEQ", "BPL", "BMI", "BCS", "BCC", "BVS", "BVC" };
-        public static IInstruction GetInstuction(string text)
+        public static IInstruction GetInstruction(string text)
         {
-            var type = GetInstuctionType(text);
+            var type = GetInstructionType(text);
 
             switch (type)
             {
@@ -39,7 +39,7 @@ namespace CPUSimulator.Instructions
 
         }
 
-        private static InstructionType GetInstuctionType(string text)
+        private static InstructionType GetInstructionType(string text)
         {
             var InstructionParts = text.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (InstructionParts.Length == 3) return InstructionType.TwoOperators;

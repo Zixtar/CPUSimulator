@@ -17,7 +17,7 @@ namespace CPUSimulator
             {
                 var trimmedInstruction= instructionText.ReplaceLineEndings().Trim().Split(";").First();
                 if (string.IsNullOrEmpty(trimmedInstruction)) continue;
-                var instruction = InstructionFactory.GetInstuction(trimmedInstruction);
+                var instruction = InstructionFactory.GetInstruction(trimmedInstruction);
                 if (instruction == null)
                 {
                     MessageBox.Show($"Invalid instruction: {instructionText}", "Sintax error", MessageBoxButton.OK, MessageBoxImage.Error);
