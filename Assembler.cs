@@ -27,6 +27,10 @@ namespace CPUSimulator
                     {
                         trimmedInstruction = textAfterLabel;
                     }   
+                    else
+                    {
+                        continue;
+                    }
                 }
                 var instruction = InstructionFactory.GetInstruction(trimmedInstruction);
                 if (instruction == null)
@@ -34,8 +38,8 @@ namespace CPUSimulator
                     MessageBox.Show($"Invalid instruction: {instructionText}", "Syntax error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }
-                var binaryFrom = instruction.GetBinaryForm();
-                result.Add(binaryFrom);
+                var binaryFormList = instruction.GenerateBinaryForm();
+                result.AddRange(binaryFormList);
                 
             }
             return result;

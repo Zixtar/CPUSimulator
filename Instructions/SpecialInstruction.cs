@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class SpecialInstruction : IInstruction
+    internal class SpecialInstruction : Instruction
     {
         private Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
@@ -30,31 +30,14 @@ namespace CPUSimulator.Instructions
             {"SES",0xE011},
             {"SCC",0xE012}
         };
-        public SpecialInstruction(string text) 
+        public SpecialInstruction(string text) : base(text)
         {
-            TextForm = text;
-        }
-        public string TextForm { get; }
-        public int OPCODE => BinaryForm;
 
-        private int? _binaryForm;
-
-        public int BinaryForm
-        {
-            get => GetBinaryForm();
-            private set
-            {
-                _binaryForm = value;
-            }
         }
 
-        public int GetBinaryForm()
+        public override List<int> GenerateBinaryForm()
         {
-            return _binaryForm ?? GenerateBinaryForm();
-        }
-
-        public int GenerateBinaryForm()
-        {
+            var list = new List<int>();
             var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int opcode;
             if (InstructionParts[1] == "PC" || InstructionParts[1] == "FLAG")
@@ -65,8 +48,9 @@ namespace CPUSimulator.Instructions
             {
                 opcode = InstructionOpcodes[InstructionParts.First()];
             }
+            list.Add(opcode);
 
-            return opcode;
+            return list;
         }
     }
 }

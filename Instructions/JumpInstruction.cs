@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class JumpInstruction : IInstruction
+    internal class JumpInstruction : Instruction
     {
         private Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
@@ -20,36 +20,20 @@ namespace CPUSimulator.Instructions
             {"BVS",0xC7},
             {"BVC",0xC8}
         };
-        public JumpInstruction(string text)
+        public JumpInstruction(string text) :base(text)
         {
-            TextForm = text;
-        }
-        public string TextForm { get; }
 
-        private int? _binaryForm;
-
-        public int BinaryForm
-        {
-            get => GetBinaryForm();
-            private set
-            {
-                _binaryForm = value;
-            }
         }
 
-        public int OFFSET => BinaryForm & 0xFF;
-        public int OPCODE => (BinaryForm & 0xFF00) >> 8;
 
-        public int GetBinaryForm()
+        public override List<int> GenerateBinaryForm()
         {
-            return _binaryForm ?? GenerateBinaryForm();
-        }
-
-        public int GenerateBinaryForm()
-        {
+            var list = new List<int>();
             var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var opcode = InstructionOpcodes[InstructionParts.First()];
-            return opcode << 8;
+            var binaryForm = opcode << 8;
+            list.Add(binaryForm);
+            return list;
         }
     }
 }

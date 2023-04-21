@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator.Instructions
 {
-    internal class TwoOperatorInstruction : IInstruction
+    internal class TwoOperatorInstruction : Instruction
     {
         private Dictionary<string,int> InstructionOpcodes=new Dictionary<string,int>()
         {
@@ -19,38 +19,56 @@ namespace CPUSimulator.Instructions
             {"OR",0x5},
             {"XOR",0x6}
         };
-        public TwoOperatorInstruction(string text) 
+        public TwoOperatorInstruction(string text) :base(text)
         {
-            TextForm = text;
-        }
-        public string TextForm { get; }
-        public int RD => BinaryForm & 0xF;
-        public int MAD => (BinaryForm & 0x30) >> 4;
-        public int RS => (BinaryForm & 0x3C0) >> 6;
-        public int MAS => (BinaryForm & 0xC00) >> 10;
-        public int OPCODE => (BinaryForm & 0xF000) >> 12;
 
-        private int? _binaryForm;
-
-        public int BinaryForm
-        {
-            get => GetBinaryForm();
-            private set
-            {
-                _binaryForm = value;
-            }
         }
 
-        public int GetBinaryForm()
+        public override List<int> GenerateBinaryForm()
         {
-            return _binaryForm ?? GenerateBinaryForm();
-        }
-
-        public int GenerateBinaryForm()
-        {
+            var list = new List<int>();
             var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var opcode = InstructionOpcodes[InstructionParts.First()];
-            return opcode<<12;
+            list.Add(opcode << 12);
+            ParseRegister(list, InstructionParts,1);
+            ParseRegister(list, InstructionParts,2);
+            return list;
+        }
+
+        private static void ParseRegister(List<int> list, string[] InstructionParts, int index)
+        {
+            int shiftAdressingMode = index == 1 ? 4 : 10;
+            int shiftRegister = index == 1 ? 0 : 6;
+            if (InstructionParts[index].First() == 'R')
+            {
+                list[0] += 1 << shiftAdressingMode;
+                list[0] += int.Parse(InstructionParts[index].Substring(1)) << shiftRegister;
+            }
+            else if (InstructionParts[index].First() == '(')
+            {
+                list[0] += 2 << shiftAdressingMode;
+                list[0] += int.Parse(InstructionParts[index]
+                    .Split("()".ToCharArray())
+                    .Where(x=>x!=string.Empty)
+                    .First().Substring(1))<< shiftRegister;
+            }
+            else
+            {
+                var parts = InstructionParts[index]
+                    .Split("()".ToCharArray());
+                if(parts.Length!=1)
+                {
+                    list[0] += int.Parse(parts
+                        .Where(x => x.First() == 'R')
+                        .First().Substring(1)) << shiftRegister;
+                    list[0] += 3 << shiftAdressingMode;
+                }
+                list.AddRange(parts.Where(x=>x!=string.Empty 
+                    && char.IsNumber(x.First()))
+                    .Select(x=>int.Parse(x)));
+                list.AddRange(parts.Where(x=>x!=string.Empty && x.Last()=='H')
+                    .Select(x=>x.Substring(0,x.Length-1)).Select(x=>Convert.ToInt32(x,16)));
+            }
         }
     }
 }

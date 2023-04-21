@@ -9,7 +9,7 @@ namespace CPUSimulator.Instructions
     internal static class InstructionFactory
     {
         private static string[] JmpText = { "BR", "BNE", "BEQ", "BPL", "BMI", "BCS", "BCC", "BVS", "BVC" };
-        public static IInstruction GetInstruction(string text)
+        public static Instruction GetInstruction(string text)
         {
             var type = GetInstructionType(text);
 
