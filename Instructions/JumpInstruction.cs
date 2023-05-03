@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,23 +26,25 @@ namespace CPUSimulator.Instructions
 
         }
 
+        public int GenerateBinaryForm(int CurrentPC)
+        {
+            var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var opcode = InstructionOpcodes[InstructionParts.First()];
+            var binaryForm = opcode << 8;
+            var NextPC = Globals.labelDictionary[InstructionParts[1]];
+            var offset = (NextPC - CurrentPC);
+            if (offset < 0)
+            {
+                offset = Byte.MaxValue - offset + 1;
+            }
+
+            binaryForm += offset;
+            return binaryForm;
+        }
 
         public override List<int> GenerateBinaryForm()
         {
-            var list = new List<int>();
-            var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            var opcode = InstructionOpcodes[InstructionParts.First()];
-            if (!Globals.labelDictionary.ContainsKey(InstructionParts[1]))
-            {
-                list.Add(0);
-            }
-            else
-            {
-                var binaryForm = opcode << 8;
-                binaryForm += Globals.labelDictionary[InstructionParts[1]];
-                list.Add(binaryForm);
-            }
-            return list;
+            return new List<int>() { 0 };
         }
     }
 }

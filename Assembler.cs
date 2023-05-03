@@ -13,7 +13,7 @@ namespace CPUSimulator
         public List<int> ParseInstructionList(List<string> instructionList)
         {
             List<int> result = new List<int>();
-            List<Tuple<int, Instruction>> instructionToChange = new();
+            List<Tuple<int, JumpInstruction>> instructionToChange = new();
             foreach (var instructionText in instructionList)
             {
                 var trimmedInstruction = instructionText.ReplaceLineEndings().Trim().Split(";").First();
@@ -38,18 +38,18 @@ namespace CPUSimulator
                     MessageBox.Show($"Invalid instruction: {instructionText}", "Syntax error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }
-                if (instruction is JumpInstruction)
+                if (instruction is JumpInstruction jmpInstruction)
                 {
-                    instructionToChange.Add(new Tuple<int, Instruction>(result.Count, instruction));
+                    instructionToChange.Add(new Tuple<int, JumpInstruction>(result.Count, jmpInstruction));
                 }
                 var binaryFormList = instruction.GenerateBinaryForm();
                 result.AddRange(binaryFormList);
             }
 
-            foreach(var instruction in instructionToChange)
+            foreach (var instruction in instructionToChange)
             {
-                var binaryForm = instruction.Item2.GenerateBinaryForm();
-                result[instruction.Item1] = binaryForm.First();
+                var binaryForm = instruction.Item2.GenerateBinaryForm(instruction.Item1 + 1);
+                result[instruction.Item1] = binaryForm;
             }
 
             return result;
