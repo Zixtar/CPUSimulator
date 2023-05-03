@@ -8,7 +8,7 @@ namespace CPUSimulator.Instructions
 {
     internal class SpecialInstruction : Instruction
     {
-        private Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
             {"NOP",0xE000},
             {"RET",0xE001},

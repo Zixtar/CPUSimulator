@@ -10,23 +10,23 @@ namespace CPUSimulator
 {
     public class Assembler
     {
-        Dictionary<string,int> labelDictionary=new Dictionary<string,int>();
         public List<int> ParseInstructionList(List<string> instructionList)
         {
-            List<int> result = new List<int>();   
-            foreach(var instructionText in instructionList)
+            List<int> result = new List<int>();
+            List<Tuple<int, Instruction>> instructionToChange = new();
+            foreach (var instructionText in instructionList)
             {
-                var trimmedInstruction= instructionText.ReplaceLineEndings().Trim().Split(";").First();
+                var trimmedInstruction = instructionText.ReplaceLineEndings().Trim().Split(";").First();
                 if (string.IsNullOrEmpty(trimmedInstruction)) continue;
                 if (trimmedInstruction.Contains(':'))
                 {
                     var label = trimmedInstruction.Split(':').First();
-                    labelDictionary.Add(label, result.Count);
+                    Globals.labelDictionary.Add(label, result.Count);
                     var textAfterLabel = trimmedInstruction.Split(':')[1];
-                    if(textAfterLabel.Length > 0) 
+                    if (textAfterLabel.Length > 0)
                     {
                         trimmedInstruction = textAfterLabel;
-                    }   
+                    }
                     else
                     {
                         continue;
@@ -38,10 +38,20 @@ namespace CPUSimulator
                     MessageBox.Show($"Invalid instruction: {instructionText}", "Syntax error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }
+                if (instruction is JumpInstruction)
+                {
+                    instructionToChange.Add(new Tuple<int, Instruction>(result.Count, instruction));
+                }
                 var binaryFormList = instruction.GenerateBinaryForm();
                 result.AddRange(binaryFormList);
-                
             }
+
+            foreach(var instruction in instructionToChange)
+            {
+                var binaryForm = instruction.Item2.GenerateBinaryForm();
+                result[instruction.Item1] = binaryForm.First();
+            }
+
             return result;
         }
     }

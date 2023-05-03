@@ -9,7 +9,7 @@ namespace CPUSimulator.Instructions
 {
     internal class TwoOperatorInstruction : Instruction
     {
-        private Dictionary<string,int> InstructionOpcodes=new Dictionary<string,int>()
+        private static readonly Dictionary<string,int> InstructionOpcodes=new Dictionary<string,int>()
         {
             {"MOV",0x0},
             {"ADD",0x1},

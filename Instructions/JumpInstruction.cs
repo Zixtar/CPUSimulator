@@ -8,7 +8,7 @@ namespace CPUSimulator.Instructions
 {
     internal class JumpInstruction : Instruction
     {
-        private Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
             {"BR",0xC0},
             {"BNE",0xC2},
@@ -20,7 +20,7 @@ namespace CPUSimulator.Instructions
             {"BVS",0xC7},
             {"BVC",0xC8}
         };
-        public JumpInstruction(string text) :base(text)
+        public JumpInstruction(string text) : base(text)
         {
 
         }
@@ -31,8 +31,16 @@ namespace CPUSimulator.Instructions
             var list = new List<int>();
             var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var opcode = InstructionOpcodes[InstructionParts.First()];
-            var binaryForm = opcode << 8;
-            list.Add(binaryForm);
+            if (!Globals.labelDictionary.ContainsKey(InstructionParts[1]))
+            {
+                list.Add(0);
+            }
+            else
+            {
+                var binaryForm = opcode << 8;
+                binaryForm += Globals.labelDictionary[InstructionParts[1]];
+                list.Add(binaryForm);
+            }
             return list;
         }
     }
