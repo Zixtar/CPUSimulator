@@ -62,11 +62,11 @@ namespace CPUSimulator
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if(openFileDialog.FileName.ToUpper().Contains(".ASM"))
+                if (openFileDialog.FileName.ToUpper().Contains(".ASM"))
                 {
                     textBox.Text = openFileDialog.FileName;
                 }
-                else 
+                else
                 {
                     textBox.Text = "Va rugam selectati un fisier cu extensia .asm";
                 }
@@ -83,14 +83,18 @@ namespace CPUSimulator
             if (textBox.Text.Length == 0) return;
             Assembler assembler = new Assembler();
             var instructionList = new List<string>();
-
             instructionList = File.ReadAllLines(textBox.Text).ToList();
 
             var machineCode = assembler.ParseInstructionList(instructionList);
 
-            foreach(var instruction in machineCode)
+            var simulator = new Simulator();
+
+            simulator.LoadProgram(machineCode, 300);
+
+
+            foreach (var instruction in machineCode)
             {
-                resultTextBox.Text += Convert.ToString(instruction, 2).PadLeft(16,'0') + '\r';
+                resultTextBox.Text += Convert.ToString(instruction, 2).PadLeft(16, '0') + '\r';
             }
         }
     }
