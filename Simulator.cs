@@ -10,25 +10,37 @@ namespace CPUSimulator
 {
     internal class Simulator
     {
-        public Simulator()
+        public Seq Sequencer;
+
+        public Simulator(List<int> program)
         {
-            var microprogram = File.ReadAllLines("Codificare.txt");
+            for (int i = 0; i < program.Count; i++)
+            {
+                MEM[i] = Convert.ToUInt16(program[i]);
+            }
+            PC = 0;
+            var microprogram = File.ReadAllLines(@"The Holy Grail\Codificare.txt");
             for (int i = 0; i < microprogram.Length; i++)
             {
                 MPM[i] = Convert.ToInt64(microprogram[i], 2);
             }
+            MAR = 0;
+            BPO = true;
         }
 
-        public void LoadProgram(List<int> program, short offset)
+        public void Start()
         {
-            for (int i = 0; i < program.Count; i++)
-            {
-                MPM[i + offset] = Convert.ToInt64(program[i]);
-            }
-            PC = offset;
+            Sequencer = new Seq();
+            Sequencer.StartSeq();
         }
 
-
+        public void DoLoop()
+        {
+            if (BPO)
+            {
+                Sequencer.DoCore();
+            }
+        }
     }
 
 }

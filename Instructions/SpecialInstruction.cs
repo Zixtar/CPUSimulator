@@ -40,7 +40,7 @@ namespace CPUSimulator.Instructions
             var list = new List<int>();
             var InstructionParts = TextForm.Replace(',', ' ').Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int opcode;
-            if (InstructionParts[1] == "PC" || InstructionParts[1] == "FLAG")
+            if (InstructionParts.Count()>1 && (InstructionParts[1] == "PC" || InstructionParts[1] == "FLAG"))
             {
                 opcode = InstructionOpcodes[InstructionParts.First() + " " + InstructionParts[1]];
             }

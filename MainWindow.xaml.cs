@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static CPUSimulator.Globals;
 
 namespace CPUSimulator
 {
@@ -21,9 +22,12 @@ namespace CPUSimulator
     /// </summary>
     public partial class MainWindow : Window
     {
-        Button browseButton, assembleButton;
-        TextBox textBox, resultTextBox;
+        Button browseButton, assembleButton, nextButton;
+        TextBox textBox, resultTextBox, microprogramTextBox;
+        List<int> lengths = new List<int>();
+        List<int> indexes = new List<int>();
         string fileName;
+        Simulator simulator;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +41,11 @@ namespace CPUSimulator
             browseButton.SetValue(Grid.ColumnProperty, 3);
             browseButton.Click += browseButton_OnClick;
             browseButton.Content = "Browse";
+            nextButton = new Button();
+            nextButton.SetValue(Grid.RowProperty, 1);
+            nextButton.SetValue(Grid.ColumnProperty, 7);
+            nextButton.Click += nextButton_OnClick;
+            nextButton.Content = "Next";
             assembleButton = new Button();
             assembleButton.SetValue(Grid.RowProperty, 1);
             assembleButton.SetValue(Grid.ColumnProperty, 5);
@@ -49,12 +58,18 @@ namespace CPUSimulator
             resultTextBox = new TextBox();
             resultTextBox.SetValue(Grid.RowProperty, 3);
             resultTextBox.SetValue(Grid.ColumnProperty, 1);
-            Grid.SetColumnSpan(resultTextBox, 5);
             resultTextBox.IsEnabled = false;
+            microprogramTextBox = new TextBox();
+            microprogramTextBox.SetValue(Grid.RowProperty, 3);
+            microprogramTextBox.SetValue(Grid.ColumnProperty, 3);
+            microprogramTextBox.IsEnabled = false;
+            Grid.SetColumnSpan(microprogramTextBox, 3);
             mainGrid.Children.Add(browseButton);
             mainGrid.Children.Add(textBox);
             mainGrid.Children.Add(resultTextBox);
             mainGrid.Children.Add(assembleButton);
+            mainGrid.Children.Add(microprogramTextBox);
+            mainGrid.Children.Add(nextButton);
         }
 
         public void OpenDialog()
@@ -81,21 +96,56 @@ namespace CPUSimulator
         public void assembleButton_OnClick(object sender, EventArgs e)
         {
             if (textBox.Text.Length == 0) return;
+
             Assembler assembler = new Assembler();
+
             var instructionList = new List<string>();
             instructionList = File.ReadAllLines(textBox.Text).ToList();
 
+
+            foreach (var instruction in instructionList)
+            {
+                resultTextBox.Text += instruction + '\r';
+            }
+
+            resultTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            resultTextBox.IsEnabled = true;
+            resultTextBox.IsReadOnly = true;
+
+            var microinstructionList = File.ReadAllLines(@"The Holy Grail\Microprogram.txt").ToList();
+            indexes.Add(0);
+
+            foreach (var microinstruction in microinstructionList)
+            {
+                microprogramTextBox.Text += microinstruction + '\r';
+                lengths.Add(microinstruction.Length);
+                indexes.Add(indexes[indexes.Count - 1] + microinstruction.Length);
+            }
+
+            microprogramTextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            microprogramTextBox.IsEnabled = true;
+            microprogramTextBox.IsReadOnly = true;
+            microprogramTextBox.Focus();
+            microprogramTextBox.SelectionStart = 0;
+            microprogramTextBox.SelectionLength = lengths[0];
+            microprogramTextBox.SelectionBrush = Brushes.Yellow;
+            microprogramTextBox.Focusable = false;
             var machineCode = assembler.ParseInstructionList(instructionList);
 
-            var simulator = new Simulator();
+            simulator = new Simulator(machineCode);
+            simulator.Start();
+        }
 
-            simulator.LoadProgram(machineCode, 300);
+        public void nextButton_OnClick(object sender, EventArgs e)
+        {
+            simulator.DoLoop();
 
-
-            foreach (var instruction in machineCode)
-            {
-                resultTextBox.Text += Convert.ToString(instruction, 2).PadLeft(16, '0') + '\r';
-            }
+            microprogramTextBox.Focusable = true;
+            microprogramTextBox.Focus();
+            microprogramTextBox.SelectionStart = indexes[MAR] + MAR;
+            microprogramTextBox.SelectionLength = lengths[MAR];
+            microprogramTextBox.SelectionBrush = Brushes.Yellow;
+            microprogramTextBox.Focusable = false;
         }
     }
 }
