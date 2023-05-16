@@ -138,12 +138,22 @@ namespace CPUSimulator
 
         public void nextButton_OnClick(object sender, EventArgs e)
         {
+            if (simulator == null) return;
             simulator.DoLoop();
 
             microprogramTextBox.Focusable = true;
             microprogramTextBox.Focus();
-            microprogramTextBox.SelectionStart = indexes[MAR] + MAR;
-            microprogramTextBox.SelectionLength = lengths[MAR];
+            if (simulator.Sequencer.stare == 2 || simulator.Sequencer.stare == 3)
+            {
+
+                microprogramTextBox.SelectionStart = indexes[MAR-1] + MAR-1;
+                microprogramTextBox.SelectionLength = lengths[MAR-1];
+            }
+            else
+            {
+                microprogramTextBox.SelectionStart = indexes[MAR] + MAR;
+                microprogramTextBox.SelectionLength = lengths[MAR];
+            }
             microprogramTextBox.SelectionBrush = Brushes.Yellow;
             microprogramTextBox.Focusable = false;
         }

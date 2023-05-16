@@ -509,7 +509,7 @@ namespace CPUSimulator
 
         }
 
-        void DoMem(ActionsMEM mem) //TODO this
+        void DoMem(ActionsMEM mem)
         {
             switch (mem)
             {
