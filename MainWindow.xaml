@@ -26,5 +26,12 @@
             <ColumnDefinition Width="175"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
+        <Button x:Name="browseButton" Grid.Row="1" Grid.Column="3" Click="browseButton_Click" Content="Browse"/>
+        <Button x:Name="nextButton" Grid.Row="1" Grid.Column="7" Click="nextButton_Click" Content="Next"/>
+        <Button x:Name="assembleButton" Grid.Row="1" Grid.Column="5" Click="assembleButton_Click" Content="Start assembler"/>
+        <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="1" IsEnabled="False"/>
+        <TextBox x:Name="resultTextBox" Grid.Row="3" Grid.Column="1" IsEnabled="False"/>
+        <TextBox x:Name="microprogramTextBox" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False"/>
+        
     </Grid>
 </Window>
