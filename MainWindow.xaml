@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPUSimulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1080">
+        Title="MainWindow" Height="740" Width="1090"
+        ResizeMode="NoResize"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -30,8 +32,879 @@
         <Button x:Name="nextButton" Grid.Row="1" Grid.Column="7" Click="nextButton_Click" Content="Next"/>
         <Button x:Name="assembleButton" Grid.Row="1" Grid.Column="5" Click="assembleButton_Click" Content="Start assembler"/>
         <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="1" IsEnabled="False"/>
-        <TextBox x:Name="resultTextBox" Grid.Row="3" Grid.Column="1" IsEnabled="False"/>
-        <TextBox x:Name="microprogramTextBox" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" IsEnabled="False"/>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="6,50,169,51">
+            <!--SBUS-->
+            <TextBlock HorizontalAlignment="Left" Margin="34,30,0,0" TextWrapping="Wrap" FontSize="12" Text="SBUS" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Line X1="50" Y1="50" X2="50" Y2="500" StrokeThickness="5" Canvas.Left="100"  Stroke="Black"/>
+            <!--DBUS-->
+            <TextBlock HorizontalAlignment="Left" Margin="84,30,0,0" TextWrapping="Wrap" FontSize="12" Text="DBUS" FontWeight="Bold" VerticalAlignment="Top"/>
+            <Line X1="100" Y1="50" X2="100" Y2="500" StrokeThickness="5" Canvas.Left="100" Stroke="Black"/>
+            <!--DBUS-ALU-->
+            <Line X1="100" Y1="70" X2="175" Y2="70" StrokeThickness="2" Canvas.Left="100" Stroke="Black"/>
+            <Image>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="180" Y="-45"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--SBUS-ALU-->
+            <Line X1="50" Y1="150" X2="175" Y2="150" StrokeThickness="2" Canvas.Left="100" Stroke="Black"/>
+            <Image>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="180" Y="35"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--ALU-->
+            <Image>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.45" ScaleY="0.35"/>
+                        <TranslateTransform X="180" Y="0"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M175,150z M0,0z M28.239673,45.362183L67.5,45.362183 86.35641,78.022437 106.03461,44.938789 144,44.938789 109.42741,103.82027 62,103.82027C62,103.82027,36.629,59.88183,28.252729,45.373704">
+                                <GeometryDrawing.Pen>
+                                    <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                </GeometryDrawing.Pen>
+                            </GeometryDrawing>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+            <TextBlock HorizontalAlignment="Left" Margin="231,80,0,0" TextWrapping="Wrap" Text="ALU" FontSize="15" VerticalAlignment="Top" Height="76" Width="15"/>
+            <TextBlock HorizontalAlignment="Left" Margin="190,60,0,0" TextWrapping="Wrap" Text="D" FontSize="17" FontWeight="Bold" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="192,136,0,0" TextWrapping="Wrap" Text="S" FontSize="17" FontWeight="Bold" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="251,95,0,0" TextWrapping="Wrap" Text="R" FontSize="17" FontWeight="Bold" VerticalAlignment="Top"/>
+            <!--ALU-RBUS-->
+            <Line X1="270" Y1="110" X2="350" Y2="110" StrokeThickness="2" Canvas.Left="100" Stroke="Black"/>
+            <Image>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="362" Y="-4.7"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--RBUS-->
+            <Line X1="365" Y1="50" X2="365" Y2="500" StrokeThickness="5" Stroke="Black"/>
+            <TextBlock HorizontalAlignment="Left" Margin="350,30,0,0" TextWrapping="Wrap" FontSize="12" Text="RBUS" FontWeight="Bold" VerticalAlignment="Top"/>
+
+            <!--FLAGS-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,-1,10,0"/>
+            <Image Margin="-2,1,2,-1">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,187,139,339" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="FLAG" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,3,0,-4"/>
+            <Image Margin="-2,-2,2,2">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,14,0,-15"/>
+            <Image Margin="-52,9,52,-9">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--RG-->
+            <Line X1="280" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,54,10,-55"/>
+            <Image Margin="12,55,-12,-56">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="179,225,124,270" >
+                <TextBlock TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="Register File (R0-R15)" TextAlignment="Center" VerticalAlignment="Top" Width="71" Margin="4,14,5,0" Height="31"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,51,0,-52"/>
+            <Image Margin="-2,46,2,-46">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,77,0,-78"/>
+            <Image Margin="-52,72,52,-72">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--SP-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,102,10,-103"/>
+            <Image Margin="-2,104,2,-104">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,289,139,237" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="SP" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,103,0,-105"/>
+            <Image Margin="-2,98,2,-98">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,116,0,-117"/>
+            <Image Margin="-52,111,52,-111">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--T-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,131,10,-132"/>
+            <Image Margin="-2,133,2,-133">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,319,139,207" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="T" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,136,0,-138"/>
+            <Image Margin="-2,131,2,-131">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,146,0,-147"/>
+            <Image Margin="-52,141,52,-141">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--PC-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,161,10,-162"/>
+            <Image Margin="-2,163,2,-163">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,349,139,177" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="PC" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,164,0,-166"/>
+            <Image Margin="-2,159,2,-159">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,175,0,-177"/>
+            <Image Margin="-52,170,52,-170">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--IVR-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,191,10,-192"/>
+            <Image Margin="-2,193,2,-193">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,379,139,147" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="IVR" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,195,0,-199"/>
+            <Image Margin="-2,190,2,-190">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,207,0,-209"/>
+            <Image Margin="-52,202,52,-202">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--ADR-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,221,10,-222"/>
+            <Image Margin="-2,223,2,-223">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,409,139,117" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="ADR" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,225,0,-229"/>
+            <Image Margin="-2,220,2,-220">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,237,0,-239"/>
+            <Image Margin="-52,232,52,-232">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--MDR-->
+            <Line X1="270" Y1="200" X2="375" Y2="200" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="-10,248,10,-249"/>
+            <Image Margin="-2,250,2,-250">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.04" ScaleY="0.03"/>
+                        <TranslateTransform X="250" Y="95"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="180,439,139,87" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="12" FontWeight="Bold" Text="MDR" VerticalAlignment="Center" TextAlignment="Center" Width="65" Height="24"/>
+            </Border>
+            <Line X1="105" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,256,0,-260"/>
+            <Image Margin="-2,251,2,-251">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Line X1="55" Y1="190" X2="180" Y2="190" StrokeThickness="2" Canvas.Left="100" Stroke="Black" Margin="0,268,0,-272"/>
+            <Image Margin="-52,263,52,-263">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V460.5 H531.74 V0 H0 Z">
+                                <GeometryDrawing Brush="#FF000000" Geometry="F1 M531.74,460.5z M0,0z M0.866,460L0.866,460 265.87,1 530.874,460z">
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="#FF000000" Thickness="1" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="0.02" ScaleY="0.02"/>
+                        <TranslateTransform X="105" Y="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+
+
+        </Grid>
+
+        <TextBox x:Name="resultTextBox" IsEnabled="False" Grid.Row="3" Grid.Column="7"/>
         
+        <StackPanel  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <TextBox x:Name="microprogramTextBox" FontSize="10" Height="150" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
+            
+            <TextBlock Text="Control Registers:" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+            <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" Background="DarkSalmon">
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="SP" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.SP), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="T" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.T), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="PC" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.PC), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="IVR" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.IVR), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="ADR" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.ADR), Mode=TwoWay}"  VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="MDR" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.MDR), Mode=TwoWay}"  VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+            
+            <TextBlock Text="FLAGs:" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+            <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" Background="DarkSalmon">
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="C" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.C), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="Z" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.Z), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="S" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.S), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="O" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.O), Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+            
+            <TextBlock Text="General Registers:" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+            <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" Background="DarkSalmon">
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R0" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R1" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R2" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R3" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R4" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R5" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R6" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R7" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" Background="DarkSalmon">
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R8" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R9" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R10" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R11" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R12" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R13" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R14" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="SlateGray">
+                    <DockPanel Width="35">
+                        <TextBlock Text="R15" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+
+        </StackPanel>
+
     </Grid>
 </Window>
