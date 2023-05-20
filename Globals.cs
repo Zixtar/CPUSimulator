@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,32 @@ using System.Threading.Tasks;
 
 namespace CPUSimulator
 {
+    public class NotifyingInt16 : INotifyPropertyChanged
+    {
+        private short _value;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public NotifyingInt16()
+        {
+            this._value = 0;
+        }
+
+        public short Value
+        {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+    }
     public static class Globals
     {
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged = delegate { };
@@ -17,7 +44,7 @@ namespace CPUSimulator
         public static UInt16[] MEM = new UInt16[65536];
         public static bool BPO, BVI, BI, INTA;
         public static bool[] BE = new bool[2];
-        public static Int16[] R = new Int16[16];
+        private static BindingList<NotifyingInt16> r = new BindingList<NotifyingInt16>() { new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16(), new NotifyingInt16() };
         public static Int64 MIR;
 
         private static short _PC;
@@ -36,22 +63,22 @@ namespace CPUSimulator
         public static short C
         {
             get => (short)(_FLAG & (short)MastiFLAG.Carry);
-            set{}
+            set { }
         }
         public static short Z
         {
             get => (short)(_FLAG & (short)MastiFLAG.Zero);
-            set{}
+            set { }
         }
         public static short S
         {
-            get => (short)(_FLAG & (short)MastiFLAG.Sign); 
-            set{}
+            get => (short)(_FLAG & (short)MastiFLAG.Sign);
+            set { }
         }
         public static short O
         {
             get => (short)(_FLAG & (short)MastiFLAG.Ovf);
-            set{}
+            set { }
         }
 
         public static short PC
@@ -155,6 +182,8 @@ namespace CPUSimulator
                 PropertyChanged();
             }
         }
+
+        public static BindingList<NotifyingInt16> R { get => r; set => r = value; }
 
         private static void PropertyChanged([CallerMemberName] string? propertyName = null)
         {

@@ -120,7 +120,7 @@ namespace CPUSimulator
                     }
                 case ActionsSBUS.PdRG:
                     {
-                        SBUS = R[(IR & (int)MastiIR.RS) >> 6];
+                        SBUS = R[(IR & (int)MastiIR.RS) >> 6].Value;
                         break;
                     }
                 case ActionsSBUS.PdSP:
@@ -189,7 +189,7 @@ namespace CPUSimulator
                     }
                 case ActionsDBUS.PdRG:
                     {
-                        DBUS = R[(IR & (int)MastiIR.RS) >> 6]; //nush daca RG la astea se refera
+                        DBUS = R[(IR & (int)MastiIR.RS) >> 6].Value; //nush daca RG la astea se refera
                         break;
                     }
                 case ActionsDBUS.PdSP:
@@ -395,7 +395,7 @@ namespace CPUSimulator
                     }
                 case ActionsRBUS.PmRG:
                     {
-                        R[(IR & (int)MastiIR.RD)] = RBUS;
+                        R[(IR & (int)MastiIR.RD)].Value = RBUS;
                         break;
                     }
                 case ActionsRBUS.PmSP:

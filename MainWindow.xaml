@@ -807,49 +807,49 @@
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R0" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[0].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R1" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[1].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R2" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[2].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R3" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[3].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R4" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[4].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R5" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[5].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R6" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[6].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R7" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[7].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
             </StackPanel>
@@ -857,49 +857,49 @@
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R8" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[8].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R9" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[9].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R10" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[10].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R11" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[11].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R12" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[12].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R13" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[13].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R14" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[14].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
                 <Border BorderThickness="2" BorderBrush="SlateGray">
                     <DockPanel Width="35">
                         <TextBlock Text="R15" DockPanel.Dock="Top" TextAlignment="Center"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
+                        <TextBlock Text="{Binding Path=(local:Globals.R)[15].Value}" VerticalAlignment="Center" TextAlignment="Center" Background="Black" Foreground="DarkSalmon" Padding="3,0,3,0"/>
                     </DockPanel>
                 </Border>
             </StackPanel>
