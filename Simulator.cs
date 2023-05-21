@@ -26,6 +26,7 @@ namespace CPUSimulator
             }
             MAR = 0;
             BPO = true;
+            SP = (short)(MEM.Length - 1);
         }
 
         public void Start()

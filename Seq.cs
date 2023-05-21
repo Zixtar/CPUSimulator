@@ -266,8 +266,13 @@ namespace CPUSimulator
                     }
                 case ActionsALU.ADD:
                     {
+                        var result = SBUS + RBUS;
                         RBUS = (short)(SBUS + DBUS);
                         tempFlags = ComputeFlags(RBUS);
+                        if(result>Int16.MaxValue)
+                        {
+                            tempFlags += 8;
+                        }
                         break;
                     }
                 case ActionsALU.SUB:

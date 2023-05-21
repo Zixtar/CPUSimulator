@@ -50,10 +50,6 @@ namespace CPUSimulator
             foreach (var instruction in instructionToChange)
             {
                 var offset = Globals.labelDictionary[instruction.Item2] - instruction.Item1-1;
-                if(offset < 0)
-                {
-                    offset = Int16.MaxValue + offset + 1;
-                }
                 result[instruction.Item1] = offset;
             }
 
