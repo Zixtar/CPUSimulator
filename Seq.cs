@@ -57,11 +57,11 @@ namespace CPUSimulator
                     var alu = (ActionsALU)((MIR & (long)MastiMIR.alu) >> 24);
                     var rbus = (ActionsRBUS)((MIR & (long)MastiMIR.rbus) >> 20);
                     var oth = (ActionsOth)(uint)((MIR & (long)MastiMIR.oth) >> 14);
+                    ComputeOth(oth);
                     ComputeSBUS(sbus);
                     ComputeDBUS(dbus);
                     ComputeALU(alu);
                     ComputeRBUS(rbus);
-                    ComputeOth(oth);
                     break;
                 case 2:
                     stare = 3;

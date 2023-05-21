@@ -15,7 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 using static CPUSimulator.Globals;
+
 
 namespace CPUSimulator
 {
@@ -28,7 +30,6 @@ namespace CPUSimulator
         List<int> indexes = new List<int>();
         Simulator simulator;
         List<string> instructionList = new List<string>();
-        int currentInstruction = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -95,6 +96,7 @@ namespace CPUSimulator
             simulator.Start();
 
             assembleButton.Visibility = Visibility.Hidden;
+            runButton.Visibility = Visibility.Visible;
 
         }
 
@@ -110,19 +112,21 @@ namespace CPUSimulator
             }
             microprogramTextBox.SelectionBrush = Brushes.Yellow;
             microprogramTextBox.Focusable = false;
-            if(MAR==0 && simulator.Sequencer.stare == 0)
-            {
-                resultTextBox.Focusable = true;
-                resultTextBox.Focus();
-                resultTextBox.SelectionStart = instructionList.Take(currentInstruction).Select(x => x.Length).Sum() + currentInstruction;
-                resultTextBox.SelectionLength = instructionList[currentInstruction].Length;
-                resultTextBox.SelectionBrush = Brushes.Yellow;
-                resultTextBox.Focusable = false;
-                currentInstruction++;
-                if (instructionList[currentInstruction].Last() == ':')
-                    currentInstruction++;
-            }
             simulator.DoLoop();
+        }
+
+        private void runButton_Click(object sender, RoutedEventArgs e)
+        {
+            Thread runThread = new Thread(Run);
+            runThread.Start();  
+        }
+
+        private void Run()
+        {
+            while (BPO)
+            {
+                simulator.DoLoop();
+            }
         }
     }
 }
