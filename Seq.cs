@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static CPUSimulator.Globals;
-// ReSharper disable All
 
 namespace CPUSimulator
 {
@@ -15,6 +14,7 @@ namespace CPUSimulator
         uint bitsSuccesor => (uint)((MIR & (long)MastiMIR.succ) >> 11);
         uint binarIndex => (uint)((MIR & (long)MastiMIR.index) >> 8);
         int tf => Convert.ToInt16((MIR & (long)MastiMIR.tf) > 0);
+        int tempFlags = 0;
 
         public Seq()
         {
@@ -38,20 +38,21 @@ namespace CPUSimulator
                     var index = CalcIndex();
                     var microadresa = MIR & (long)MastiMIR.adr;
                     var g = Compute_g();
-                    if (g) MAR = Convert.ToInt16(microadresa + index);
+                    if (g) 
+                        MAR = Convert.ToInt16(microadresa + index);
                     else MAR++;
 
                     if (!Convert.ToBoolean(MIR & (long)MastiMIR.bit24) & !Convert.ToBoolean(MIR & (long)MastiMIR.bit25))
                     {
                         stare = 0;
-                        break; //am inteles ok?
+                        break;
                     }
                     else
                     {
                         stare = 2;
                     }
 
-                    var sbus = (ActionsSBUS)((MIR & (long)MastiMIR.sbus) >> 32); //posibil sa crape nush daca e logic sau arithmetic shift right
+                    var sbus = (ActionsSBUS)((MIR & (long)MastiMIR.sbus) >> 32);
                     var dbus = (ActionsDBUS)((MIR & (long)MastiMIR.dbus) >> 28);
                     var alu = (ActionsALU)((MIR & (long)MastiMIR.alu) >> 24);
                     var rbus = (ActionsRBUS)((MIR & (long)MastiMIR.rbus) >> 20);
@@ -266,42 +267,50 @@ namespace CPUSimulator
                 case ActionsALU.ADD:
                     {
                         RBUS = (short)(SBUS + DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.SUB:
                     {
                         RBUS = (short)(SBUS - DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.AND:
                     {
                         RBUS = (short)(SBUS & DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.OR:
                     {
                         RBUS = (short)(SBUS | DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.XOR:
                     {
                         RBUS = (short)(SBUS ^ DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.ASL:
                     {
                         RBUS = (short)(SBUS << DBUS);
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.ASR:
                     {
                         RBUS = (short)(SBUS >>
                                        DBUS); //Imi e frica ca asta posibil converteste la int prima data si nu face arithmetic shift ca pune 0 in fata
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.LSR:
                     {
                         RBUS = (short)(SBUS >> DBUS); //TODO: daca facem update la C#11 avem operatorul >>>
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.ROL:
@@ -316,7 +325,7 @@ namespace CPUSimulator
 
                             RBUS = (short)(RBUS << 1);
                         }
-
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.ROR:
@@ -331,7 +340,7 @@ namespace CPUSimulator
 
                             RBUS /= 2;
                         }
-
+                        tempFlags = ComputeFlags(RBUS);
                         break;
                     }
                 case ActionsALU.RLC:
@@ -374,6 +383,24 @@ namespace CPUSimulator
                     }
             }
 
+        }
+
+        private int ComputeFlags(int result)
+        {
+            int flags = 0;
+            if(result<0)
+            {
+                flags += 4;
+            }
+            if(result==0)
+            {
+                flags += 2;
+            }
+            if(result>Int16.MaxValue)
+            {
+                flags += 1;
+            }
+            return flags;
         }
 
         void ComputeRBUS(ActionsRBUS rbus)
@@ -439,17 +466,17 @@ namespace CPUSimulator
                     break;
                 case ActionsOth.SPP2:
                     {
-                        SP += 2;
+                        SP += 1;
                         break;
                     }
                 case ActionsOth.SPN2:
                     {
-                        SP -= 2;
+                        SP -= 1;
                         break;
                     }
                 case ActionsOth.PCP2:
                     {
-                        PC += 2;
+                        PC += 1;
                         break;
                     }
                 case ActionsOth.A1BE0:
@@ -459,22 +486,24 @@ namespace CPUSimulator
                     }
                 case ActionsOth.A1BE1:
                     {
-                        BE[1] = true; //e ok cu bistabilii?
+                        BE[1] = true;
                         break;
                     }
                 case ActionsOth.PdCONDA:
                     {
-                        //apai sa ma bata
+                        FLAG = (short)tempFlags;
                         break;
                     }
                 case ActionsOth.CinPdCondA:
                     {
-                        //ca nu am alu facut
+                        RBUS++;
+                        tempFlags = ComputeFlags(RBUS);
+                        FLAG = (short)tempFlags;
                         break;
                     }
                 case ActionsOth.PdCONDL:
                     {
-                        // :(
+                        FLAG = (short)tempFlags;
                         break;
                     }
                 case ActionsOth.A1BVI:
@@ -541,15 +570,14 @@ namespace CPUSimulator
                     return (Convert.ToInt16(BE[0]) ^ tf) > 0;
                 case 3:
                     return (Convert.ToInt16(BE[1]) ^ tf) > 0;
-                case 4: //nush cum sa pun flags ca sa fie relevant pt microprogram sau macar daca trebuie
-                    return false;
-                case 5: //nush cum sa pun flags ca sa fie relevant pt microprogram sau macar daca trebuie
-                    return false;
-                case 6: //nush cum sa pun flags ca sa fie relevant pt microprogram sau macar daca trebuie
-                    return false;
-                case 7
-                    : //nush cum sa pun flags ca sa fie relevant pt microprogram sau macar daca trebuie, edit: cred ca sunt doar prost si nu inteleg ceva, edit2: am inteles ce trb facut, facem alta data ca nu mai pot
-                    return false;
+                case 4:
+                    return (Convert.ToInt16(FLAG&(short)MastiFLAG.Carry) ^ tf) > 0;
+                case 5: 
+                    return (Convert.ToInt16(FLAG & (short)MastiFLAG.Zero) ^ tf) > 0;
+                case 6: 
+                    return (Convert.ToInt16(FLAG & (short)MastiFLAG.Sign) ^ tf) > 0;
+                case 7: 
+                    return (Convert.ToInt16(FLAG & (short)MastiFLAG.Ovf) ^ tf) > 0;
                 default:
                     return false;
             }

@@ -27,6 +27,8 @@ namespace CPUSimulator
         List<int> lengths = new List<int>();
         List<int> indexes = new List<int>();
         Simulator simulator;
+        List<string> instructionList = new List<string>();
+        int currentInstruction = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -58,9 +60,7 @@ namespace CPUSimulator
 
             Assembler assembler = new Assembler();
 
-            var instructionList = new List<string>();
             instructionList = File.ReadAllLines(textBox.Text).ToList();
-
 
             foreach (var instruction in instructionList)
             {
@@ -71,7 +71,7 @@ namespace CPUSimulator
             resultTextBox.IsEnabled = true;
             resultTextBox.IsReadOnly = true;
 
-            var microinstructionList = File.ReadAllLines(@"The Holy Grail\Microprogram.txt").ToList();
+            var microinstructionList = File.ReadAllLines(@"The Holy Grail\Microprogram.txt").Select(x=>x.Trim()).ToList();
             indexes.Add(0);
 
             foreach (var microinstruction in microinstructionList)
@@ -101,23 +101,28 @@ namespace CPUSimulator
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
             if (simulator == null) return;
-            simulator.DoLoop();
-
             microprogramTextBox.Focusable = true;
             microprogramTextBox.Focus();
-            if (simulator.Sequencer.stare == 2 || simulator.Sequencer.stare == 3)
-            {
-
-                microprogramTextBox.SelectionStart = indexes[MAR - 1] + MAR - 1;
-                microprogramTextBox.SelectionLength = lengths[MAR - 1];
-            }
-            else
+            if (!(simulator.Sequencer.stare == 2 || simulator.Sequencer.stare == 3))
             {
                 microprogramTextBox.SelectionStart = indexes[MAR] + MAR;
                 microprogramTextBox.SelectionLength = lengths[MAR];
             }
             microprogramTextBox.SelectionBrush = Brushes.Yellow;
             microprogramTextBox.Focusable = false;
+            if(MAR==0 && simulator.Sequencer.stare == 0)
+            {
+                resultTextBox.Focusable = true;
+                resultTextBox.Focus();
+                resultTextBox.SelectionStart = instructionList.Take(currentInstruction).Select(x => x.Length).Sum() + currentInstruction;
+                resultTextBox.SelectionLength = instructionList[currentInstruction].Length;
+                resultTextBox.SelectionBrush = Brushes.Yellow;
+                resultTextBox.Focusable = false;
+                currentInstruction++;
+                if (instructionList[currentInstruction].Last() == ':')
+                    currentInstruction++;
+            }
+            simulator.DoLoop();
         }
     }
 }

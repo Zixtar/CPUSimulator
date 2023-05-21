@@ -18,7 +18,7 @@ namespace CPUSimulator
             {
                 MEM[i] = Convert.ToUInt16(program[i]);
             }
-            PC = 0;
+            PC = -1;
             var microprogram = File.ReadAllLines(@"The Holy Grail\Codificare.txt");
             for (int i = 0; i < microprogram.Length; i++)
             {

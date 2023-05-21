@@ -729,7 +729,7 @@
 
         </Grid>
 
-        <TextBox x:Name="resultTextBox" IsEnabled="False" Grid.Row="3" Grid.Column="7"/>
+        <TextBox x:Name="resultTextBox" IsEnabled="False" Grid.Row="3" Grid.Column="7" HorizontalScrollBarVisibility="Auto"/>
         
         <StackPanel  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <TextBox x:Name="microprogramTextBox" FontSize="10" Height="150" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>

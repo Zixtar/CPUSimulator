@@ -10,21 +10,19 @@ namespace CPUSimulator.Instructions
     {
         private static readonly Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
-            {"CLR",0x200},
-            {"NEG",0x201},
-            {"INC",0x202},
-            {"DEC",0x203},
-            {"ASL",0x204},
-            {"ASR",0x205},
-            {"LSR",0x206},
-            {"ROL",0x207},
-            {"ROR",0x208},
-            {"RLC",0x209},
-            {"RRC",0x20A},
-            {"JMP",0x20B},
-            {"CALL",0x20C},
-            {"PUSH",0x20D},
-            {"POP",0x20E}
+            {"CLR",0x280},
+            {"NEG",0x284},
+            {"INC",0x288},
+            {"DEC",0x28C},
+            {"ASL",0x290},
+            {"ASR",0x294},
+            {"LSR",0x298},
+            {"ROL",0x29C},
+            {"ROR",0x2A0},
+            {"RLC",0x2A4},
+            {"RRC",0x2A8},
+            {"PUSH",0x2AC},
+            {"POP",0x2B0}
         };
         public OneOperatorInstruction(string text) : base(text)
         {

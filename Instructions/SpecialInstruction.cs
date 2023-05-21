@@ -10,25 +10,26 @@ namespace CPUSimulator.Instructions
     {
         private static readonly Dictionary<string, int> InstructionOpcodes = new Dictionary<string, int>()
         {
-            {"NOP",0xE000},
-            {"RET",0xE001},
-            {"RETI",0xE002},
-            {"HALT",0xE003},
-            {"WAIT",0xE004},
-            {"PUSH PC",0xE005},
-            {"POP PC",0xE006},
-            {"PUSH FLAG",0xE007},
-            {"POP FLAG",0xE008},
-            {"CLC",0xE009},
-            {"CLV",0xE00A},
-            {"CLZ",0xE00B},
-            {"CLS",0xE00C},
-            {"CCC",0xE00D},
-            {"SEC",0xE00E},
-            {"SEV",0xE00F},
-            {"SEZ",0xE010},
-            {"SES",0xE011},
-            {"SCC",0xE012}
+            {"CLC",0xE0F7},
+            {"CLV",0xE0FB},
+            {"CLZ",0xE0FD},
+            {"CLS",0xE0FE},
+            {"CCC",0xE0F0},
+            {"SEC",0xE108},
+            {"SEV",0xE104},
+            {"SEZ",0xE102},
+            {"SES",0xE101},
+            {"SCC",0xE10F},
+            {"NOP",0xE200},
+            {"HALT",0xE300},
+            {"EI",0xE400},
+            {"DI",0xE500},
+            {"PUSH PC",0xE600},
+            {"POP PC",0xF700},
+            {"PUSH FLAG",0xF800},
+            {"POP FLAG",0xF900},
+            {"RET",0xFA00},
+            {"RETI",0xFB00}
         };
         public SpecialInstruction(string text) : base(text)
         {
