@@ -42,10 +42,9 @@ namespace CPUSimulator
                         MAR = Convert.ToInt16(microadresa + index);
                     else MAR++;
 
-                    if (!Convert.ToBoolean(MIR & (long)MastiMIR.bit24) & !Convert.ToBoolean(MIR & (long)MastiMIR.bit25))
+                    if (!Convert.ToBoolean(MIR & (long)MastiMIR.bit18) & !Convert.ToBoolean(MIR & (long)MastiMIR.bit19))
                     {
                         stare = 0;
-                        break;
                     }
                     else
                     {
@@ -266,7 +265,7 @@ namespace CPUSimulator
                     }
                 case ActionsALU.ADD:
                     {
-                        var result = SBUS + RBUS;
+                        var result = SBUS + DBUS;
                         RBUS = (short)(SBUS + DBUS);
                         tempFlags = ComputeFlags(RBUS);
                         if(result>Int16.MaxValue)
@@ -550,7 +549,7 @@ namespace CPUSimulator
                 case ActionsMEM.NONE:
                     break;
                 case ActionsMEM.IFCH:
-                    IR = (Int16) MEM[PC];
+                    IR = (Int16) MEM[ADR];
                     break;
                 case ActionsMEM.RD:
                     MDR =(Int16) MEM[ADR];
@@ -604,8 +603,8 @@ namespace CPUSimulator
             index = 0b000000000000000000000000011100000000,
             tf    = 0b000000000000000000000000000010000000,
             adr   = 0b000000000000000000000000000001111111,
-            bit24 = 0b000000000001000000000000000000000000,
-            bit25 = 0b000000000010000000000000000000000000,
+            bit18 = 0b000000000000000001000000000000000000,
+            bit19 = 0b000000000000000010000000000000000000,
 
         }
 
