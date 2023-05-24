@@ -31,6 +31,10 @@
         <Button x:Name="browseButton" Grid.Row="1" Grid.Column="3" Click="browseButton_Click" Content="Browse"/>
         <Button x:Name="nextButton" Grid.Row="1" Grid.Column="7" Click="nextButton_Click" Content="Next"/>
         <Button x:Name="assembleButton" Grid.Row="1" Grid.Column="5" Click="assembleButton_Click" Content="Start assembler"/>
+        <StackPanel Grid.Column="7" Grid.Row="0" Orientation="Horizontal">
+            <Label Content="SEQ State: " FontWeight="Bold"/>
+            <Label Content="{Binding Path=(local:Globals.Stare)}" Foreground="Magenta" FontWeight="Black"/>
+        </StackPanel>
         <Button x:Name="runButton" Grid.Row="1" Grid.Column="5" Click="runButton_Click" Content="Run Program" Visibility="Collapsed"/>
         <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="1" IsEnabled="False"/>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="6,50,169,51">

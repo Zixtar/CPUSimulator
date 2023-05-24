@@ -59,6 +59,17 @@ namespace CPUSimulator
         private static short _ADR;
         private static short _MDR;
         private static short _MAR;
+        private static int _stare;
+
+        public static int Stare
+        {
+            get => _stare;
+            set
+            {
+                _stare = value;
+                PropertyChanged();
+            }
+        }
 
         public static short C
         {

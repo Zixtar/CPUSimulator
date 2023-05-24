@@ -10,7 +10,11 @@ namespace CPUSimulator
 {
     internal class Seq
     {
-        public int stare = -1;
+        public int stare
+        {
+            get => Globals.Stare;
+            set => Globals.Stare = value;
+        }
         uint bitsSuccesor => (uint)((MIR & (long)MastiMIR.succ) >> 11);
         uint binarIndex => (uint)((MIR & (long)MastiMIR.index) >> 8);
         int tf => Convert.ToInt16((MIR & (long)MastiMIR.tf) > 0);
