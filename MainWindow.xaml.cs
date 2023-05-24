@@ -43,6 +43,7 @@ namespace CPUSimulator
                 if (openFileDialog.FileName.ToUpper().Contains(".ASM"))
                 {
                     textBox.Text = openFileDialog.FileName;
+                    Globals.ProgramLoaded = true;
                 }
                 else
                 {
@@ -95,6 +96,7 @@ namespace CPUSimulator
             simulator = new Simulator(machineCode);
             simulator.Start();
 
+            ProgramAssembled = true;
             assembleButton.Visibility = Visibility.Hidden;
             runButton.Visibility = Visibility.Visible;
 

@@ -60,6 +60,29 @@ namespace CPUSimulator
         private static short _MDR;
         private static short _MAR;
         private static int _stare;
+        private static bool _programLoaded = false;
+
+        public static bool ProgramLoaded
+        {
+            get => _programLoaded;
+            set
+            {
+                _programLoaded = value;
+                PropertyChanged();
+            }
+        }
+
+        private static bool _programAssembled = false;
+
+        public static bool ProgramAssembled
+        {
+            get => _programAssembled;
+            set
+            {
+                _programAssembled = value;
+                PropertyChanged();
+            }
+        }
 
         public static int Stare
         {

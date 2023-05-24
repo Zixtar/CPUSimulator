@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static CPUSimulator.Globals;
 
 namespace CPUSimulator
@@ -527,6 +528,7 @@ namespace CPUSimulator
                 case ActionsOth.A0BPO:
                     {
                         BPO = false;
+                        MessageBox.Show("Program ended gracefully!","Info",MessageBoxButton.OK,MessageBoxImage.Information);
                         break;
                     }
                 case ActionsOth.INTASPN2:
