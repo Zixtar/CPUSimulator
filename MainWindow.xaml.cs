@@ -33,6 +33,7 @@ namespace CPUSimulator
         public MainWindow()
         {
             InitializeComponent();
+            ResetColors();
         }
 
         public void OpenDialog()

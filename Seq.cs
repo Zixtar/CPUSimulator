@@ -114,6 +114,7 @@ namespace CPUSimulator
 
         void ComputeSBUS(ActionsSBUS sbus)
         {
+            Globals.SBUSAction = true;
             switch (sbus)
             {
                 case ActionsSBUS.NONE:
@@ -179,10 +180,12 @@ namespace CPUSimulator
                         break;
                     }
             }
+            Globals.SBUSAction = false;
         }
 
         void ComputeDBUS(ActionsDBUS dbus)
         {
+            Globals.DBUSAction = true;
             switch (dbus)
             {
                 case ActionsDBUS.NONE:
@@ -248,6 +251,8 @@ namespace CPUSimulator
                         break;
                     }
             }
+            Globals.DBUSAction = false;
+
         }
 
         void ComputeALU(ActionsALU alu)
@@ -469,6 +474,7 @@ namespace CPUSimulator
 
         void ComputeOth(ActionsOth oth)
         {
+            Globals.OthAction = true;
             switch (oth)
             {
                 case ActionsOth.NONE:
@@ -545,11 +551,12 @@ namespace CPUSimulator
                         break;
                     }
             }
-
+            Globals.OthAction = false;
         }
 
         void DoMem(ActionsMEM mem)
         {
+            Globals.MemAction = true;
             switch (mem)
             {
                 case ActionsMEM.NONE:
@@ -564,6 +571,8 @@ namespace CPUSimulator
                     MEM[ADR] = (UInt16) MDR;
                     break;
             }
+            Globals.MemAction = false;
+
         }
 
         #endregion All_the_switches_in_the_world

@@ -33,15 +33,18 @@ namespace CPUSimulator
         {
             Sequencer = new Seq();
             Sequencer.StartSeq();
+            ResetColors();
         }
 
         public void DoLoop()
         {
             if (BPO)
             {
+                ResetColors();
                 Sequencer.DoCore();
             }
         }
+
     }
 
 }
