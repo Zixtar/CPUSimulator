@@ -37,7 +37,7 @@
         <Button x:Name="assembleButton" Visibility="{Binding Path=(local:Globals.ProgramLoaded), Converter={StaticResource BoolConv}}" Grid.Row="1" Grid.Column="5" Click="assembleButton_Click" Content="Start assembler"/>
         <StackPanel Visibility="{Binding Path=(local:Globals.ProgramAssembled), Converter={StaticResource BoolConv}}"  Grid.Column="7" Grid.Row="0" Orientation="Horizontal">
             <Label Content="SEQ State: " FontWeight="Bold"/>
-            <Label Content="{Binding Path=(local:Globals.Stare)}" Foreground="Magenta" FontWeight="Black"/>
+            <Label Content="{Binding Path=(local:Globals.Stare)}" Foreground="OrangeRed" FontWeight="Black"/>
         </StackPanel>
         <Button x:Name="runButton" Grid.Row="1" Grid.Column="5" Click="runButton_Click" Content="Run Program" Visibility="Collapsed"/>
         <TextBox x:Name="textBox" Grid.Row="1" Grid.Column="1" IsEnabled="False"/>
